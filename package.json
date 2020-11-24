@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@atomikui/core": "^0.9.0",
+    "@atomikui/core-sass": "^0.2.0",
     "classnames": "^2.2.6",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -21,6 +22,7 @@
     "eslint": "^7.14.0",
     "eslint-config-atomikui": "^0.2.0",
     "parcel": "^1.12.4",
+    "sass": "^1.29.0",
     "stylelint": "^13.8.0",
     "stylelint-config-atomikui": "^0.1.0"
   }
