@@ -24,6 +24,12 @@ main {
   height: 100%;
   justify-content: center;
 
+  svg {
+    -webkit-animation: spin 70s linear infinite;
+    -moz-animation: spin 70s linear infinite;
+    animation: spin 70s linear infinite;
+  }
+
   h1 {
     font-size: rem(70);
     font-weight: $font-bold;
@@ -46,5 +52,24 @@ main {
 
   a {
     color: lighten($cyan-600, 5%);
+  }
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
