@@ -5,7 +5,8 @@
   "scripts": {
     "build": "parcel build src/index.html",
     "start": "parcel src/index.html --port 1111",
-    "lint:js": "eslint 'src/**/*.js' --fix --ignore-pattern '*.test.js'"
+    "lint:js": "eslint 'src/**/*.js' --fix --ignore-pattern '*.test.js'",
+    "lint:scss": "stylelint ./src/**/*.scss  --config .stylelintrc --fix"
   },
   "keywords": [],
   "author": "",
