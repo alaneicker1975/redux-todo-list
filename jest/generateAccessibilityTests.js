@@ -6,7 +6,7 @@ const generateAccessibilityTests = ({
   url = process.env.URL,
 }) => {
   describe(`Accesssibility testing for component: ${component}`, () => {
-    const pageUrl = `${url}/#!/${path}`;
+    const pageUrl = `${url}/${path}`;
     let browser;
     let page;
 
@@ -22,7 +22,7 @@ const generateAccessibilityTests = ({
     it('Should pass accessibility tests', async () => {
       await page.goto(pageUrl);
       await expect(page).toPassAxeTests({
-        include: `[data-preview=${component}]`,
+        include: `#root`,
       });
     });
 
