@@ -22,7 +22,7 @@ npm run test:unit
 
 ### Running Accessibility Tests
 
-Accessibility tests are designated with a `.spec.js` extension to separate them from us tests.
+Accessibility tests are designated with a `.spec.js` extension to separate them from unit tests.
 
 ```
 npm run test:unit
