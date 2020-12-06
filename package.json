@@ -9,7 +9,7 @@
     "build": "parcel build src/index.html",
     "start": "parcel src/index.html --port 8000",
     "lint:js": "eslint 'src/**/*.js' --fix --ignore-pattern '*.test.js'",
-    "lint:scss": "stylelint ./src/**/*.scss  --config .stylelintrc --fix",
+    "lint:css": "stylelint ./src/**/*.{css,scss}  --config .stylelintrc --fix",
     "test:unit": "jest --coverage --silent --config=./jest/jest.config.js",
     "test:accessibility": "URL=http://localhost:8000 npx jest --testTimeout 60000 --testRegex \\(__test__/.*\\|\\(\\.\\|/\\)\\(spec\\)\\)\\.[jt]sx?$"
   },
