@@ -13,11 +13,6 @@
     "test:unit": "jest --coverage --silent --config=./jest/jest.config.js",
     "test:accessibility": "URL=http://localhost:8000 npx jest --testTimeout 60000 --testRegex \\(__test__/.*\\|\\(\\.\\|/\\)\\(spec\\)\\)\\.[jt]sx?$"
   },
-  "jest": {
-    "setupFilesAfterEnv": [
-      "@wordpress/jest-puppeteer-axe"
-    ]
-  },
   "dependencies": {
     "@atomikui/core": "^0.9.8",
     "@atomikui/core-sass": "^0.2.1",
@@ -25,6 +20,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
     "classnames": "^2.2.6",
+    "parcel-plugin-prerender": "^1.4.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-axe": "^3.5.4",
@@ -50,5 +46,15 @@
     "stylelint": "^13.8.0",
     "stylelint-config-atomikui": "^0.1.0",
     "whatwg-fetch": "^3.5.0"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "@wordpress/jest-puppeteer-axe"
+    ]
+  },
+  "prerender": {
+    "routes": [
+      "/"
+    ]
   }
 }
