@@ -29,8 +29,8 @@ const App = () => (
         </svg>
         <h1>Welcome!</h1>
         <h2>Your project starts here.</h2>
-        <p>
-          The React Project Starter is powered by{' '}
+        <h3>
+          Powered by{' '}
           <Link
             href="https://parceljs.org/"
             target="_blank"
@@ -46,6 +46,10 @@ const App = () => (
           >
             Atomik UI
           </Link>
+        </h3>
+        <p>
+          With support for Jest, Enzyme, ESLint, Stylelint, Prettier, React Axe,
+          and Travis CI.
         </p>
       </div>
     </main>
