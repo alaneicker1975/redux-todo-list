@@ -55,13 +55,13 @@ export const addNewTodo = (reqData) => (dispatch) => {
 
 // PATCH: Todo
 // ------------------------------------------------------------------------
-export const updateTodo = (id, reqData) => (dispatch) => {
+export const updateTodo = (id, { title }) => (dispatch) => {
   fetch(`http://localhost:4000/api/todos/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-type': fetchContentType,
     },
-    body: JSON.stringify(reqData),
+    body: JSON.stringify({ title }),
   })
     .then((res) => res.json())
     .then(() => dispatch({ type: UPDATE_TODO, payload: { id, data: reqData } }))

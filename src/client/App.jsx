@@ -10,7 +10,6 @@ const App = () => {
   return (
     <div className="App">
       <main>
-        <h1 className="text-align-center">My Todos</h1>
         {message && (
           <Alert className="margin-top-16" theme={message.type}>
             {message.text}

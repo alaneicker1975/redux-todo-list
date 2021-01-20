@@ -19,8 +19,8 @@ const withDispatcher = (Component, todoId) => (originalProps) => {
     dispatch(updateTodo(todo));
   };
 
-  const onUpdate = (todo, id) => {
-    dispatch(updateTodo(todo, id));
+  const onUpdate = (title, id) => {
+    dispatch(updateTodo(id, { title }));
   };
 
   const onDelete = (id) => {

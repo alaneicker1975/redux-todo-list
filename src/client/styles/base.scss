@@ -19,19 +19,10 @@ main {
   display: flex;
   height: 100%;
   justify-content: center;
+}
 
-  h1 {
-    border-bottom: rem(1) solid $blue-gray-700;
-    font-size: rem(50);
-    font-weight: $font-bold;
-    line-height: 1;
-    margin-top: rem(16);
-    padding-bottom: rem(16);
-  }
-
-  a {
-    color: lighten($cyan-600, 5%);
-  }
+.wrapper {
+  border: rem(1) solid $blue-gray-800;
 }
 
 p {
