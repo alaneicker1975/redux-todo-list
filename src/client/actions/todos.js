@@ -10,6 +10,10 @@ import {
 
 const fetchContentType = 'application/json; charset=UTF-8';
 
+const setError = (dispatch, text) => {
+  dispatch({ type: SET_MESSAGE, payload: { type: 'error', text } });
+};
+
 // GET: Todos
 // ------------------------------------------------------------------------
 export const getTodos = () => async (dispatch) => {
@@ -17,16 +21,11 @@ export const getTodos = () => async (dispatch) => {
     const res = await fetch('http://localhost:4000/api/todos');
     const { err, data } = await res.json();
 
-    if (err) {
-      dispatch({ type: SET_MESSAGE, payload: { type: 'error', text: err } });
-    }
+    if (err) setError(dispatch, err);
 
     dispatch({ type: FETCH_TODOS, payload: data });
   } catch (err) {
-    dispatch({
-      type: SET_MESSAGE,
-      payload: { type: 'error', text: err.message },
-    });
+    setError(dispatch, err.message);
   }
 };
 
@@ -71,16 +70,23 @@ export const updateTodo = (id, reqData) => (dispatch) => {
 
 // DELETE: Todo
 // ------------------------------------------------------------------------
-export const deleteTodo = (id) => (dispatch) => {
-  fetch(`http://localhost:4000/api/todos/${id}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-type': fetchContentType,
-    },
-  })
-    .then((res) => res.json())
-    .then(() => dispatch({ type: DELETE_TODO, payload: { id } }))
-    .catch((err) => {});
+export const deleteTodo = (id) => async (dispatch) => {
+  try {
+    const res = await fetch(`http://localhost:4000/api/todos/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': fetchContentType,
+      },
+    });
+
+    const { err } = await res.json();
+
+    if (err) setError(dispatch, err);
+
+    dispatch({ type: DELETE_TODO, payload: { id } });
+  } catch (err) {
+    setError(dispatch, err.message);
+  }
 };
 
 // Patch: Todo status
@@ -97,15 +103,10 @@ export const updateTodoStatus = (id, { isComplete }) => async (dispatch) => {
 
     const { err } = await res.json();
 
-    if (err) {
-      dispatch({ type: SET_MESSAGE, payload: { type: 'error', text: err } });
-    }
+    if (err) setError(dispatch, err);
 
     dispatch({ type: UPDATE_TODO_STATUS, payload: { id, isComplete } });
   } catch (err) {
-    dispatch({
-      type: SET_MESSAGE,
-      payload: { type: 'error', text: err.message },
-    });
+    setError(dispatch, err.message);
   }
 };

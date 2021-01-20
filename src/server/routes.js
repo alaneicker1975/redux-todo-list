@@ -38,6 +38,23 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
-router.patch('/:delete', (req, res) => {});
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const { affectedRows } = await db({
+      query: 'DELETE FROM todos WHERE id = ?',
+      data: [id],
+    });
+
+    if (affectedRows > 0) {
+      res.status(200).send({});
+    } else {
+      res.status(500).send({ err: 'could not delete' });
+    }
+  } catch (err) {
+    res.status(500).send({ err: err.message });
+  }
+});
 
 module.exports = router;
