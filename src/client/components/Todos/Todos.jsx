@@ -24,8 +24,9 @@ const Todos = withDispatcher(
             {headerText}
           </span>
         }
-        logoFontSize={36}
+        logoFontSize={40}
         logoFontColor="white"
+        logoFont="'Barlow Condensed', Arial, Helvetica, sans-serif"
         linkColor="white"
         menuToggleColor="white"
       >
