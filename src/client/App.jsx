@@ -15,7 +15,9 @@ const App = () => {
             {message.text}
           </Alert>
         )}
-        {(!message || message.type !== 'error') && <Todos />}
+        {(!message || message.type !== 'error') && (
+          <Todos headerText="My Todos" />
+        )}
       </main>
     </div>
   );
