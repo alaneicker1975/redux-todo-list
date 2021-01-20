@@ -19,7 +19,6 @@ const db = (options) => {
 
   return new Promise((resolve, reject) => {
     pool.getConnection((err, connection) => {
-      console.log(err);
       if (err) {
         console.log('DATABASE ERROR: ', err);
         connection.release();
