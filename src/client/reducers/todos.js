@@ -10,6 +10,7 @@ const initalState = {
   todos: [],
   todo: {},
 };
+
 const todosReducer = (state = initalState, action) => {
   const { type, payload } = action;
 

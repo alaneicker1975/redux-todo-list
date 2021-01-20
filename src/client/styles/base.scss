@@ -1,0 +1,39 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: $blue-gray-900;
+  padding: rem(25);
+}
+
+main {
+  max-width: rem(768);
+  width: rem(768);
+}
+
+.App {
+  color: $white;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+
+  h1 {
+    border-bottom: rem(1) solid $blue-gray-700;
+    font-size: rem(50);
+    font-weight: $font-bold;
+    line-height: 1;
+    margin-top: rem(16);
+    padding-bottom: rem(16);
+  }
+
+  a {
+    color: lighten($cyan-600, 5%);
+  }
+}
+
+p {
+  margin-top: rem(16);
+}

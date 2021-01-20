@@ -1,11 +1,11 @@
 import React from 'react';
-import TodoList from './components/TodoList';
+import Todos from './components/Todos';
 
 const App = () => (
   <div className="App">
     <main>
       <h1 className="text-align-center">My Todos</h1>
-      <TodoList />
+      <Todos />
     </main>
   </div>
 );
