@@ -4,6 +4,7 @@ import {
   ADD_TODO,
   UPDATE_TODO,
   DELETE_TODO,
+  UPDATE_TODO_STATUS,
 } from '../constants/action-types';
 
 const initalState = {
@@ -27,6 +28,8 @@ const todosReducer = (state = initalState, action) => {
     case UPDATE_TODO:
       return { ...state };
     case DELETE_TODO:
+      return { ...state };
+    case UPDATE_TODO_STATUS:
       return { ...state };
     default:
       return state;

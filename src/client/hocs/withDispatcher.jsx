@@ -1,13 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchTodos,
-  fetchTodo,
-  putTodo,
-  patchTodo,
-  deleteTodo,
-} from '../actions/todos';
+import { getTodos, getTodo, updateTodo, deleteTodo } from '../actions/todos';
 
 const withDispatcher = (Component, todoId) => (originalProps) => {
   const dispatch = useDispatch();
@@ -16,7 +10,7 @@ const withDispatcher = (Component, todoId) => (originalProps) => {
   } = useSelector((state) => state);
 
   const onAdd = (todo) => {
-    dispatch(putTodo(todo));
+    dispatch(updateTodo(todo));
   };
 
   const onUpdate = (todo, id) => {
@@ -26,6 +20,8 @@ const withDispatcher = (Component, todoId) => (originalProps) => {
   const onDelete = (id) => {
     dispatch(deleteTodo(id));
   };
+
+  const onStatusUpdate = (id) => {};
 
   const props = {
     ...originalProps,
@@ -37,9 +33,9 @@ const withDispatcher = (Component, todoId) => (originalProps) => {
 
   useEffect(() => {
     if (todoId) {
-      dispatch(fetchTodo(todoId));
+      dispatch(getTodo(todoId));
     } else {
-      dispatch(fetchTodos());
+      dispatch(getTodos());
     }
   }, [dispatch]);
 

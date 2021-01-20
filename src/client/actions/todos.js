@@ -4,73 +4,62 @@ import {
   ADD_TODO,
   UPDATE_TODO,
   DELETE_TODO,
+  UPDATE_TODO_STATUS,
 } from '../constants/action-types';
 
 const fetchContentType = 'application/json; charset=UTF-8';
 
 // GET: Todos
 // ------------------------------------------------------------------------
-
-export const setTodos = (payload) => ({ type: FETCH_TODOS, payload });
-
-export const fetchTodos = () => (dispatch) => {
+export const getTodos = () => (dispatch) => {
   fetch('http://localhost:4000/api/todos')
     .then((res) => res.json())
-    .then((todos) => dispatch(setTodos(todos)))
-    .catch(() => {});
+    .then((todos) => dispatch({ type: FETCH_TODOS, payload: todos }))
+    .catch((err) => {});
 };
 
 // GET: Todo
 // ------------------------------------------------------------------------
-
-export const setTodo = (payload) => ({ type: FETCH_TODO, payload });
-
-export const fetchTodo = (id) => (dispatch) => {
+export const getTodo = (id) => (dispatch) => {
   fetch(`http://localhost:4000/api/todos/${id}`)
     .then((res) => res.json())
-    .then((todo) => dispatch(setTodo(todo)))
-    .catch(() => {});
+    .then((todo) => dispatch({ type: FETCH_TODO, payload: todo }))
+    .catch((err) => {});
 };
 
 // PUT: Todo
 // ------------------------------------------------------------------------
-export const addTodo = (payload) => ({ type: ADD_TODO, payload });
-
-export const putTodo = (todo) => (dispatch) => {
+export const addNewTodo = (reqBody) => (dispatch) => {
   fetch(`http://localhost:4000/api/todos/`, {
     method: 'PUT',
     headers: {
       'Content-type': fetchContentType,
     },
-    body: JSON.stringify(todo),
+    body: JSON.stringify(reqBody),
   })
     .then((res) => res.json())
-    .then(() => dispatch(addTodo(todo)))
-    .catch(() => {});
+    .then(() => dispatch({ type: ADD_TODO, payload: reqBody }))
+    .catch((err) => {});
 };
 
 // PATCH: Todo
 // ------------------------------------------------------------------------
-export const updateTodo = (payload) => ({ type: UPDATE_TODO, payload });
-
-export const patchTodo = (todo, id) => (dispatch) => {
+export const updateTodo = (reqBody) => (dispatch) => {
   fetch(`http://localhost:4000/api/todos/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-type': fetchContentType,
     },
-    body: JSON.stringify({ todo, id }),
+    body: JSON.stringify(reqBody),
   })
     .then((res) => res.json())
-    .then(() => dispatch(updateTodo(todo)))
-    .catch(() => {});
+    .then(() => dispatch({ type: UPDATE_TODO, payload: reqBody }))
+    .catch((err) => {});
 };
 
 // DELETE: Todo
 // ------------------------------------------------------------------------
-export const removeTodo = (payload) => ({ type: DELETE_TODO, payload });
-
-export const deleteTodo = (id) => (dispatch) => {
+export const deleteTodo = (reqBody) => (dispatch) => {
   fetch(`http://localhost:4000/api/todos/${id}`, {
     method: 'DELETE',
     headers: {
@@ -78,6 +67,21 @@ export const deleteTodo = (id) => (dispatch) => {
     },
   })
     .then((res) => res.json())
-    .then(() => dispatch(removeTodo({ id })))
-    .catch(() => {});
+    .then(() => dispatch({ type: DELETE_TODO, reqBody }))
+    .catch((err) => {});
+};
+
+// Patch: Todo status
+// ------------------------------------------------------------------------
+export const updateStatus = (reqBody) => (dispatch) => {
+  fetch(`http://localhost:4000/api/todos/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-type': fetchContentType,
+    },
+    body: JSON.stringify(reqBody),
+  })
+    .then((res) => res.json())
+    .then(() => dispatch({ type: UPDATE_TODO_STATUS, payload: reqBody }))
+    .catch((err) => {});
 };
