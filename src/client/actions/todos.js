@@ -11,11 +11,19 @@ const fetchContentType = 'application/json; charset=UTF-8';
 
 // GET: Todos
 // ------------------------------------------------------------------------
-export const getTodos = () => (dispatch) => {
-  fetch('http://localhost:4000/api/todos')
-    .then((res) => res.json())
-    .then((todos) => dispatch({ type: FETCH_TODOS, payload: todos }))
-    .catch((err) => {});
+export const getTodos = () => async (dispatch) => {
+  try {
+    const res = await fetch('http://localhost:4000/api/todos');
+    const { err, data } = await res.json();
+
+    if (err) {
+      // dispatch error
+    }
+
+    dispatch({ type: FETCH_TODOS, payload: data });
+  } catch (err) {
+    // dispatch error
+  }
 };
 
 // GET: Todo

@@ -3,10 +3,13 @@ const db = require('./db');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  db({ query: `SELECT * FROM todos` })
-    .then((data) => res.send(data))
-    .catch((err) => console.log(err));
+router.get('/', async (req, res) => {
+  try {
+    const data = await db({ query: `SELECT * FROM todos` });
+    res.status(200).send({ data });
+  } catch (err) {
+    res.status(500).send({ err: err.message });
+  }
 });
 
 router.get('/:id', (req, res) => {});
