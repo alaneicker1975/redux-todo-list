@@ -5,6 +5,7 @@ import {
   UPDATE_TODO,
   DELETE_TODO,
   UPDATE_TODO_STATUS,
+  SET_MESSAGE,
 } from '../constants/action-types';
 
 const fetchContentType = 'application/json; charset=UTF-8';
@@ -17,7 +18,7 @@ export const getTodos = () => async (dispatch) => {
     const { err, data } = await res.json();
 
     if (err) {
-      // dispatch error
+      dispatch({ type: SET_MESSAGE, payload: { type: 'error', text: err } });
     }
 
     dispatch({ type: FETCH_TODOS, payload: data });
@@ -81,7 +82,7 @@ export const deleteTodo = (reqBody) => (dispatch) => {
 
 // Patch: Todo status
 // ------------------------------------------------------------------------
-export const updateStatus = (reqBody) => (dispatch) => {
+export const updateTodoStatus = (reqBody) => (dispatch) => {
   fetch(`http://localhost:4000/api/todos/${id}`, {
     method: 'PATCH',
     headers: {
