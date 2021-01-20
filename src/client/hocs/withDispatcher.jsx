@@ -1,7 +1,13 @@
 /* eslint-disable react/display-name */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTodos, getTodo, updateTodo, deleteTodo } from '../actions/todos';
+import {
+  getTodos,
+  getTodo,
+  updateTodo,
+  deleteTodo,
+  updateTodoStatus,
+} from '../actions/todos';
 
 const withDispatcher = (Component, todoId) => (originalProps) => {
   const dispatch = useDispatch();
@@ -21,7 +27,10 @@ const withDispatcher = (Component, todoId) => (originalProps) => {
     dispatch(deleteTodo(id));
   };
 
-  const onStatusUpdate = (id) => {};
+  const onUpdateStatus = (status, id) => {
+    const isComplete = status ? 0 : 1;
+    dispatch(updateTodoStatus(id, { isComplete }));
+  };
 
   const props = {
     ...originalProps,
@@ -29,6 +38,7 @@ const withDispatcher = (Component, todoId) => (originalProps) => {
     onAdd,
     onUpdate,
     onDelete,
+    onUpdateStatus,
   };
 
   useEffect(() => {

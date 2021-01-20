@@ -30,7 +30,14 @@ const todosReducer = (state = initalState, action) => {
     case DELETE_TODO:
       return { ...state };
     case UPDATE_TODO_STATUS:
-      return { ...state };
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === payload.id
+            ? { ...todo, isComplete: payload.isComplete }
+            : todo,
+        ),
+      };
     default:
       return state;
   }
