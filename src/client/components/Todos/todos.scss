@@ -1,0 +1,48 @@
+.todo-list-wrapper {
+  border: rem(1) solid $blue-gray-800;
+}
+
+.todo-list {
+  & > * + * {
+    border-top: rem(1) solid $blue-gray-800;
+  }
+
+  & > :nth-child(even) {
+    background: lighten($blue-gray-900, 2%);
+  }
+
+  &__item {
+    align-items: center;
+    display: flex;
+    padding: rem(16);
+
+    & > :nth-child(2) {
+      flex: 1;
+    }
+
+    & > * + * {
+      margin-left: rem(16);
+    }
+  }
+
+  &__input {
+    background: transparent;
+    color: $white;
+    padding: 0;
+    height: rem(28);
+  }
+
+  &__update-status-btn {
+    height: rem(20);
+    width: rem(20);
+    border-radius: 50%;
+  }
+
+  &__delete-btn {
+    width: rem(35);
+
+    &:hover {
+      background: none;
+    }
+  }
+}
