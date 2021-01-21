@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { todoActions } from '../actions';
+import { actions } from '../actions';
 
 const initialState = {
   message: null,
@@ -8,7 +8,7 @@ const initialState = {
 const messagingReducer = handleActions(
   {
     // SET_MESSAGE
-    [todoActions.setMessage.toString()]: (state, action) => ({
+    [actions.setMessage.toString()]: (state, action) => ({
       message: action.payload,
     }),
   },

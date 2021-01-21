@@ -4,7 +4,7 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Button, FormField, Header } from '@atomikui/core';
 import AddTodoForm from '../AddTodoForm';
-import withTodoActions from './withTodoActions';
+import withEventHandlers from './withEventHandlers';
 
 const Todos = ({ headerText, todos, onDelete, onAdd, onUpdate }) => (
   <div className="todo-list">
@@ -73,4 +73,4 @@ Todos.defaultProps = {
   onUpdate: null,
 };
 
-export default withTodoActions(Todos);
+export default withEventHandlers(Todos);

@@ -1,5 +1,5 @@
 import {
-  todoActions,
+  actions,
   setMessage,
   setTodos,
   addTodo,
@@ -15,7 +15,7 @@ const baseUrl = process.env.BASE_URL;
 
 const api = ({ dispatch }) => (next) => async (action = { type: '' }) => {
   switch (action.type) {
-    case todoActions.fetchGet.toString():
+    case actions.fetchGet.toString():
       try {
         const res = await fetch(baseUrl);
         const { err, data } = await res.json();
@@ -27,7 +27,7 @@ const api = ({ dispatch }) => (next) => async (action = { type: '' }) => {
         dispatch(setMessage(err.message));
       }
       break;
-    case todoActions.fetchPut.toString():
+    case actions.fetchPut.toString():
       try {
         const data = action.payload;
 
@@ -46,7 +46,7 @@ const api = ({ dispatch }) => (next) => async (action = { type: '' }) => {
         dispatch(setMessage(err.message));
       }
       break;
-    case todoActions.fetchPatch.toString():
+    case actions.fetchPatch.toString():
       try {
         const { id, data } = action.payload;
 
@@ -65,7 +65,7 @@ const api = ({ dispatch }) => (next) => async (action = { type: '' }) => {
         dispatch(setMessage(err.message));
       }
       break;
-    case todoActions.fetchDelete.toString():
+    case actions.fetchDelete.toString():
       try {
         const id = action.payload;
 

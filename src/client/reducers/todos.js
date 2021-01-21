@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { todoActions } from '../actions';
+import { actions } from '../actions';
 
 const initalState = {
   todos: [],
@@ -9,15 +9,15 @@ const initalState = {
 const todosReducer = handleActions(
   {
     // SET_TODOS
-    [todoActions.setTodos.toString()]: (state, action) => ({
+    [actions.setTodos.toString()]: (state, action) => ({
       todos: action.payload,
     }),
     // ADD_TODO
-    [todoActions.addTodo.toString()]: (state, action) => ({
+    [actions.addTodo.toString()]: (state, action) => ({
       todos: [...state.todos, action.payload],
     }),
     // UPDATE_TODO
-    [todoActions.updateTodo.toString()]: (state, action) => ({
+    [actions.updateTodo.toString()]: (state, action) => ({
       todos: state.todos.map((todo) =>
         todo.id === action.payload.id
           ? { ...todo, ...action.payload.data }
@@ -25,7 +25,7 @@ const todosReducer = handleActions(
       ),
     }),
     // DELETE_TODO
-    [todoActions.deleteTodo.toString()]: (state, action) => ({
+    [actions.deleteTodo.toString()]: (state, action) => ({
       todos: state.todos.filter((todo) => todo.id !== action.payload),
     }),
   },
