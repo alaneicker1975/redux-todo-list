@@ -8,27 +8,46 @@ import {
 
 const fetchContentType = 'application/json; charset=UTF-8';
 
-const setError = (dispatch, text) => {
-  dispatch({ type: SET_MESSAGE, payload: { type: 'error', text } });
-};
+const messageHandler = (text) => ({
+  type: SET_MESSAGE,
+  payload: { type: 'error', text },
+});
 
-// GET: Todos
+// Action Creators
 // ------------------------------------------------------------------------
+
+const getTodosSuccess = (data) => ({ type: FETCH_TODOS, payload: data });
+
+const addTodoSuccess = (insertId, data) => ({
+  type: ADD_TODO,
+  payload: { id: insertId, ...data },
+});
+
+const updateTodoSuccess = (id, data) => ({
+  type: UPDATE_TODO,
+  payload: { id, data },
+});
+
+const deleteTodoSuccess = (id) => ({ type: DELETE_TODO, payload: { id } });
+
+// Thunks
+// ------------------------------------------------------------------------
+
+// GET
 export const getTodos = () => async (dispatch) => {
   try {
     const res = await fetch('http://localhost:4000/api/todos');
     const { err, data } = await res.json();
 
-    if (err) setError(dispatch, err);
+    if (err) throw new Error(err);
 
-    dispatch({ type: FETCH_TODOS, payload: data });
+    dispatch(getTodosSuccess(data));
   } catch (err) {
-    setError(dispatch, err.message);
+    dispatch(messageHandler(err.message));
   }
 };
 
-// PUT: Todo
-// ------------------------------------------------------------------------
+// PUT
 export const addTodo = (data) => async (dispatch) => {
   try {
     const res = await fetch(`http://localhost:4000/api/todos/`, {
@@ -41,16 +60,15 @@ export const addTodo = (data) => async (dispatch) => {
 
     const { insertId, err } = await res.json();
 
-    if (err) setError(dispatch, err);
+    if (err) throw new Error(err);
 
-    dispatch({ type: ADD_TODO, payload: { id: insertId, ...data } });
+    dispatch(addTodoSuccess(insertId, data));
   } catch (err) {
-    setError(dispatch, err.message);
+    dispatch(messageHandler(err.message));
   }
 };
 
-// Patch: Todo status
-// ------------------------------------------------------------------------
+// PATCH
 export const updateTodo = (id, data) => async (dispatch) => {
   try {
     const res = await fetch(`http://localhost:4000/api/todos/${id}`, {
@@ -63,16 +81,15 @@ export const updateTodo = (id, data) => async (dispatch) => {
 
     const { err } = await res.json();
 
-    if (err) setError(dispatch, err);
+    if (err) throw new Error(err);
 
-    dispatch({ type: UPDATE_TODO, payload: { id, data } });
+    dispatch(updateTodoSuccess(id, data));
   } catch (err) {
-    setError(dispatch, err.message);
+    dispatch(messageHandler(err.message));
   }
 };
 
-// DELETE: Todo
-// ------------------------------------------------------------------------
+// DELETE
 export const deleteTodo = (id) => async (dispatch) => {
   try {
     const res = await fetch(`http://localhost:4000/api/todos/${id}`, {
@@ -84,10 +101,10 @@ export const deleteTodo = (id) => async (dispatch) => {
 
     const { err } = await res.json();
 
-    if (err) setError(dispatch, err);
+    if (err) throw new Error(err);
 
-    dispatch({ type: DELETE_TODO, payload: { id } });
+    dispatch(deleteTodoSuccess(id));
   } catch (err) {
-    setError(dispatch, err.message);
+    dispatch(messageHandler(err.message));
   }
 };

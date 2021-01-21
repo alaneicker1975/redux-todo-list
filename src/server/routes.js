@@ -13,21 +13,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
-  try {
-    const { id } = req.params;
-    const data = await db.query({
-      query: `SELECT * FROM todos WHERE id = ?`,
-      data: [id],
-      isArray: false,
-    });
-
-    res.status(200).send({ data });
-  } catch (err) {
-    res.status(500).send({ err: err.message });
-  }
-});
-
 router.put('/', async (req, res) => {
   try {
     const { body } = req;
