@@ -1,5 +1,5 @@
 import {
-  FETCH_TODOS,
+  SET_TODOS,
   ADD_TODO,
   UPDATE_TODO,
   DELETE_TODO,
@@ -14,7 +14,7 @@ const todosReducer = (state = initalState, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case FETCH_TODOS:
+    case SET_TODOS:
       return { ...state, todos: payload };
     case ADD_TODO:
       return { ...state, todos: [...state.todos, payload] };

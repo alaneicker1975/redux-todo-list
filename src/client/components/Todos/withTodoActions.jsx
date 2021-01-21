@@ -1,24 +1,29 @@
 /* eslint-disable react/display-name */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTodos, addTodo, updateTodo, deleteTodo } from '../../actions/todos';
+import {
+  fetchGet,
+  fetchPut,
+  fetchPatch,
+  fetchDelete,
+} from '../../actions/todos';
 
-const withTodoActions = (Component, todoId) => (originalProps) => {
+const withTodoActions = (Component) => (originalProps) => {
   const dispatch = useDispatch();
   const {
     todosReducer: { todos },
   } = useSelector((state) => state);
 
   const onAdd = (todo) => {
-    dispatch(addTodo({ ...todo, isComplete: false }));
+    dispatch(fetchPut({ ...todo, isComplete: false }));
   };
 
   const onUpdate = (id, data) => {
-    dispatch(updateTodo(id, data));
+    dispatch(fetchPatch(id, data));
   };
 
   const onDelete = (id) => {
-    dispatch(deleteTodo(id));
+    dispatch(fetchDelete(id));
   };
 
   const props = {
@@ -30,7 +35,7 @@ const withTodoActions = (Component, todoId) => (originalProps) => {
   };
 
   useEffect(() => {
-    dispatch(getTodos());
+    dispatch(fetchGet());
   }, [dispatch]);
 
   return <Component {...props} />;
