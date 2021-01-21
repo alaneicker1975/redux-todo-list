@@ -16,19 +16,22 @@ const setMessage = (text) => ({
   payload: { type: 'error', text },
 });
 
-const getTodosSuccess = (data) => ({ type: FETCH_TODOS, payload: data });
+export const getTodosSuccess = (data) => ({ type: FETCH_TODOS, payload: data });
 
-const addTodoSuccess = (insertId, data) => ({
+export const addTodoSuccess = (insertId, data) => ({
   type: ADD_TODO,
   payload: { id: insertId, ...data },
 });
 
-const updateTodoSuccess = (id, data) => ({
+export const updateTodoSuccess = (id, data) => ({
   type: UPDATE_TODO,
   payload: { id, data },
 });
 
-const deleteTodoSuccess = (id) => ({ type: DELETE_TODO, payload: { id } });
+export const deleteTodoSuccess = (id) => ({
+  type: DELETE_TODO,
+  payload: { id },
+});
 
 // Thunks
 // ------------------------------------------------------------------------
