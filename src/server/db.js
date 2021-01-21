@@ -24,7 +24,6 @@ class DB {
         this.connection = connection;
 
         if (err) {
-          console.log('DATABASE ERROR: ', err);
           connection.release();
           reject(err);
         }

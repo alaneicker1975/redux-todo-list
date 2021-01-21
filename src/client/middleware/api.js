@@ -14,81 +14,79 @@ const headers = {
 const baseUrl = process.env.BASE_URL;
 
 const api = ({ dispatch }) => (next) => async (action) => {
-  if (action.type.match(/(FETCH_GET|FETCH_PUT|FETCH_PATCH|FETCH_DELETE)/)) {
-    switch (action.type) {
-      case todoActions.fetchGet.toString():
-        try {
-          const res = await fetch(baseUrl);
-          const { err, data } = await res.json();
+  switch (action.type) {
+    case todoActions.fetchGet.toString():
+      try {
+        const res = await fetch(baseUrl);
+        const { err, data } = await res.json();
 
-          if (err) throw new Error(err);
+        if (err) throw new Error(err);
 
-          dispatch(setTodos(data));
-        } catch (err) {
-          dispatch(setMessage(err.message));
-        }
-        break;
-      case todoActions.fetchPut.toString():
-        try {
-          const data = action.payload;
+        dispatch(setTodos(data));
+      } catch (err) {
+        dispatch(setMessage(err.message));
+      }
+      break;
+    case todoActions.fetchPut.toString():
+      try {
+        const data = action.payload;
 
-          const res = await fetch(baseUrl, {
-            method: 'PUT',
-            headers,
-            body: JSON.stringify(data),
-          });
+        const res = await fetch(baseUrl, {
+          method: 'PUT',
+          headers,
+          body: JSON.stringify(data),
+        });
 
-          const { insertId, err } = await res.json();
+        const { insertId, err } = await res.json();
 
-          if (err) throw new Error(err);
+        if (err) throw new Error(err);
 
-          dispatch(addTodo(insertId, data));
-        } catch (err) {
-          dispatch(setMessage(err.message));
-        }
-        break;
-      case todoActions.fetchPatch.toString():
-        try {
-          const { id, data } = action.payload;
+        dispatch(addTodo(insertId, data));
+      } catch (err) {
+        dispatch(setMessage(err.message));
+      }
+      break;
+    case todoActions.fetchPatch.toString():
+      try {
+        const { id, data } = action.payload;
 
-          const res = await fetch(`${baseUrl}${id}`, {
-            method: 'PATCH',
-            headers,
-            body: JSON.stringify(data),
-          });
+        const res = await fetch(`${baseUrl}${id}`, {
+          method: 'PATCH',
+          headers,
+          body: JSON.stringify(data),
+        });
 
-          const { err } = await res.json();
+        const { err } = await res.json();
 
-          if (err) throw new Error(err);
+        if (err) throw new Error(err);
 
-          dispatch(updateTodo(id, data));
-        } catch (err) {
-          dispatch(setMessage(err.message));
-        }
-        break;
-      case todoActions.fetchDelete.toString():
-        try {
-          const id = action.payload;
+        dispatch(updateTodo(id, data));
+      } catch (err) {
+        dispatch(setMessage(err.message));
+      }
+      break;
+    case todoActions.fetchDelete.toString():
+      try {
+        const id = action.payload;
 
-          const res = await fetch(`${baseUrl}${id}`, {
-            method: 'DELETE',
-            headers,
-          });
+        const res = await fetch(`${baseUrl}${id}`, {
+          method: 'DELETE',
+          headers,
+        });
 
-          const { err } = await res.json();
+        const { err } = await res.json();
 
-          if (err) throw new Error(err);
+        if (err) throw new Error(err);
 
-          dispatch(deleteTodo(id));
-        } catch (err) {
-          dispatch(setMessage(err.message));
-        }
-        break;
-      default:
-    }
-  } else {
-    next(action);
+        dispatch(deleteTodo(id));
+      } catch (err) {
+        dispatch(setMessage(err.message));
+      }
+      break;
+    default:
   }
+
+  next(action);
 };
 
 export default api;

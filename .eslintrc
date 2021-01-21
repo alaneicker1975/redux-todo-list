@@ -2,6 +2,6 @@
   "parser": "babel-eslint",
   "extends": "atomikui",
   "rules": {
-    "no-console": 0
+    "import/no-cycle": ["error", { "maxDepth": "Infinity" }]
   }
 }
