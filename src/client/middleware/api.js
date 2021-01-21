@@ -37,6 +37,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
       case FETCH_PUT:
         try {
           const data = action.payload;
+
           const res = await fetch(baseUrl, {
             method: 'PUT',
             headers,
@@ -55,6 +56,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
       case FETCH_PATCH:
         try {
           const { id, data } = action.payload;
+
           const res = await fetch(`${baseUrl}${id}`, {
             method: 'PATCH',
             headers,
