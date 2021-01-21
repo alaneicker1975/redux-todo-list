@@ -29,17 +29,24 @@ export const getTodos = () => async (dispatch) => {
 
 // PUT: Todo
 // ------------------------------------------------------------------------
-export const addNewTodo = (data) => (dispatch) => {
-  fetch(`http://localhost:4000/api/todos/`, {
-    method: 'PUT',
-    headers: {
-      'Content-type': fetchContentType,
-    },
-    body: JSON.stringify(data),
-  })
-    .then((res) => res.json())
-    .then(() => dispatch({ type: ADD_TODO, payload: data }))
-    .catch((err) => {});
+export const addNewTodo = (data) => async (dispatch) => {
+  try {
+    const res = await fetch(`http://localhost:4000/api/todos/`, {
+      method: 'PUT',
+      headers: {
+        'Content-type': fetchContentType,
+      },
+      body: JSON.stringify(data),
+    });
+
+    const { err } = await res.json();
+
+    if (err) setError(dispatch, err);
+
+    dispatch({ type: ADD_TODO, payload: data });
+  } catch (err) {
+    setError(dispatch, err.message);
+  }
 };
 
 // Patch: Todo status

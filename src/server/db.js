@@ -14,26 +14,51 @@ const pool = mysql.createPool({
 
 pool.config.connectionLimit = 400;
 
-const db = (options) => {
-  const { query, data, isArray } = options;
+class DB {
+  constructor() {
+    this.connection = null;
+  }
 
-  return new Promise((resolve, reject) => {
-    pool.getConnection((err, connection) => {
-      if (err) {
-        console.log('DATABASE ERROR: ', err);
-        connection.release();
-        reject(err);
-      }
-      connection.query(query, data, (err, result) => {
-        connection.release();
+  query = ({ query, data, isArray }) =>
+    new Promise((resolve, reject) => {
+      pool.getConnection((err, connection) => {
+        this.connection = connection;
+
         if (err) {
+          console.log('DATABASE ERROR: ', err);
+          connection.release();
           reject(err);
-        } else {
-          resolve(isArray === false ? result[0] : result);
         }
+
+        connection.query(query, data, (err, result) => {
+          connection.release();
+          if (err) {
+            reject(err);
+          } else {
+            resolve(isArray === false ? result[0] : result);
+          }
+        });
       });
     });
-  });
-};
+}
 
-module.exports = db;
+// const db = ({ query, data, isArray }) =>
+//   new Promise((resolve, reject) => {
+//     pool.getConnection((err, connection) => {
+//       if (err) {
+//         console.log('DATABASE ERROR: ', err);
+//         connection.release();
+//         reject(err);
+//       }
+//       connection.query(query, data, (err, result) => {
+//         connection.release();
+//         if (err) {
+//           reject(err);
+//         } else {
+//           resolve(isArray === false ? result[0] : result);
+//         }
+//       });
+//     });
+//   });
+
+module.exports = DB;

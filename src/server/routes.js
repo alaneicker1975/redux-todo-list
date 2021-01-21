@@ -1,11 +1,12 @@
 const express = require('express');
-const db = require('./db');
+const DB = require('./db');
 
 const router = express.Router();
+const db = new DB();
 
 router.get('/', async (req, res) => {
   try {
-    const data = await db({ query: `SELECT * FROM todos` });
+    const data = await db.query({ query: `SELECT * FROM todos` });
     res.status(200).send({ data });
   } catch (err) {
     res.status(500).send({ err: err.message });
@@ -15,7 +16,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await db({
+    const data = await db.query({
       query: `SELECT * FROM todos WHERE id = ?`,
       data: [id],
       isArray: false,
@@ -27,7 +28,23 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.put('/', (req, res) => {});
+router.put('/', async (req, res) => {
+  try {
+    const { body } = req;
+    const { lastID } = await db.query({
+      query: 'INSERT INTO todos SET ?',
+      data: body,
+    });
+
+    if (lastID) {
+      res.status(200).send({});
+    } else {
+      res.status(500).send({ err: 'Could not insert' });
+    }
+  } catch (err) {
+    res.status(500).send({ err: err.message });
+  }
+});
 
 router.patch('/:id', async (req, res) => {
   try {
@@ -36,13 +53,9 @@ router.patch('/:id', async (req, res) => {
       params: { id },
     } = req;
 
-    const cols = Object.keys(body)
-      .map((col) => `${col} = ?`)
-      .join(',');
-
-    const { affectedRows } = await db({
-      query: `UPDATE todos SET ${cols} WHERE id = ?`,
-      data: [...Object.values(body), id],
+    const { affectedRows } = await db.query({
+      query: `UPDATE todos SET ? WHERE id = ${db.connection.escape(id)}`,
+      data: body,
     });
 
     if (affectedRows > 0) {
@@ -59,7 +72,7 @@ router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { affectedRows } = await db({
+    const { affectedRows } = await db.query({
       query: 'DELETE FROM todos WHERE id = ?',
       data: [id],
     });
