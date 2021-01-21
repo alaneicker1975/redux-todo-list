@@ -8,13 +8,13 @@ import {
 
 const fetchContentType = 'application/json; charset=UTF-8';
 
-const messageHandler = (text) => ({
+// Action Creators
+// ------------------------------------------------------------------------
+
+const setMessage = (text) => ({
   type: SET_MESSAGE,
   payload: { type: 'error', text },
 });
-
-// Action Creators
-// ------------------------------------------------------------------------
 
 const getTodosSuccess = (data) => ({ type: FETCH_TODOS, payload: data });
 
@@ -43,7 +43,7 @@ export const getTodos = () => async (dispatch) => {
 
     dispatch(getTodosSuccess(data));
   } catch (err) {
-    dispatch(messageHandler(err.message));
+    dispatch(setMessage(err.message));
   }
 };
 
@@ -64,7 +64,7 @@ export const addTodo = (data) => async (dispatch) => {
 
     dispatch(addTodoSuccess(insertId, data));
   } catch (err) {
-    dispatch(messageHandler(err.message));
+    dispatch(setMessage(err.message));
   }
 };
 
@@ -85,7 +85,7 @@ export const updateTodo = (id, data) => async (dispatch) => {
 
     dispatch(updateTodoSuccess(id, data));
   } catch (err) {
-    dispatch(messageHandler(err.message));
+    dispatch(setMessage(err.message));
   }
 };
 
@@ -105,6 +105,6 @@ export const deleteTodo = (id) => async (dispatch) => {
 
     dispatch(deleteTodoSuccess(id));
   } catch (err) {
-    dispatch(messageHandler(err.message));
+    dispatch(setMessage(err.message));
   }
 };

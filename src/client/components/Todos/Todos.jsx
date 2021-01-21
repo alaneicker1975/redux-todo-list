@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { faTimes, faListUl } from '@fortawesome/free-solid-svg-icons';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Button, FormField, Header } from '@atomikui/core';
 import AddTodoForm from '../AddTodoForm';
 import withTodoActions from './withTodoActions';
@@ -10,9 +10,8 @@ const Todos = ({ headerText, todos, onDelete, onAdd, onUpdate }) => (
   <div className="todo-list">
     <Header
       backgroundColor="#1f2a30"
-      logo={<Icon icon={faListUl} color="white" />}
       logoText={<span style={{ marginLeft: '8px' }}>{headerText}</span>}
-      logoFontSize={40}
+      logoFontSize={36}
       logoFontColor="white"
       logoFont="'Barlow Condensed', Arial, Helvetica, sans-serif"
       linkColor="white"
