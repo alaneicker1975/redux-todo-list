@@ -1,4 +1,4 @@
-import { createActions } from 'redux-actions';
+import { createActions, createAction } from 'redux-actions';
 import store from '../store';
 
 export const actions = createActions({
@@ -6,11 +6,12 @@ export const actions = createActions({
   ADD_TODO: (payload) => payload,
   UPDATE_TODO: (payload) => payload,
   DELETE_TODO: (payload) => payload,
-  SET_MESSAGE: (payload) => payload,
   FETCH_GET: (payload) => payload,
   FETCH_PUT: (payload) => payload,
   FETCH_PATCH: (payload) => payload,
   FETCH_DELETE: (payload) => payload,
+  SET_MESSAGE: (payload) => payload,
+  CLEAR_MESSAGE: () => null,
 });
 
 export const fetchGet = () => {
@@ -31,6 +32,10 @@ export const fetchDelete = (id) => {
 
 export const setMessage = (text) => {
   store.dispatch(actions.setMessage({ type: 'error', text }));
+};
+
+export const clearMessage = () => {
+  store.dispatch(actions.clearMessage());
 };
 
 export const setTodos = (todo) => {

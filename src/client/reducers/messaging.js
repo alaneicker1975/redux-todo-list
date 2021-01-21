@@ -11,6 +11,10 @@ const messagingReducer = handleActions(
     [actions.setMessage.toString()]: (state, action) => ({
       message: action.payload,
     }),
+    // CLEAR_MESSAGE
+    [actions.clearMessage.toString()]: (state, action) => ({
+      message: null,
+    }),
   },
   initialState,
 );
