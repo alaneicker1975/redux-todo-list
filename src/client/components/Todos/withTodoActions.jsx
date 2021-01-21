@@ -19,7 +19,7 @@ const withTodoActions = (Component) => (originalProps) => {
   };
 
   const onUpdate = (id, data) => {
-    dispatch(fetchPatch(id, data));
+    dispatch(fetchPatch({ id, data }));
   };
 
   const onDelete = (id) => {

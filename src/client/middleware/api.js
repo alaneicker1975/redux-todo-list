@@ -1,11 +1,5 @@
 import {
-  FETCH_GET,
-  FETCH_PUT,
-  FETCH_PATCH,
-  FETCH_DELETE,
-} from '../constants/action-types';
-
-import {
+  todoActions,
   setMessage,
   setTodos,
   addTodo,
@@ -22,7 +16,7 @@ const baseUrl = process.env.BASE_URL;
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type.match(/(FETCH_GET|FETCH_PUT|FETCH_PATCH|FETCH_DELETE)/)) {
     switch (action.type) {
-      case FETCH_GET:
+      case todoActions.fetchGet.toString():
         try {
           const res = await fetch(baseUrl);
           const { err, data } = await res.json();
@@ -34,7 +28,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
           dispatch(setMessage(err.message));
         }
         break;
-      case FETCH_PUT:
+      case todoActions.fetchPut.toString():
         try {
           const data = action.payload;
 
@@ -53,7 +47,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
           dispatch(setMessage(err.message));
         }
         break;
-      case FETCH_PATCH:
+      case todoActions.fetchPatch.toString():
         try {
           const { id, data } = action.payload;
 
@@ -72,7 +66,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
           dispatch(setMessage(err.message));
         }
         break;
-      case FETCH_DELETE:
+      case todoActions.fetchDelete.toString():
         try {
           const id = action.payload;
 
