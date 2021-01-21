@@ -1,12 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchGet,
-  fetchPut,
-  fetchPatch,
-  fetchDelete,
-} from '../../actions/todos';
+import { fetchGet, fetchPut, fetchPatch, fetchDelete } from '../../actions';
 
 const withTodoActions = (Component) => (originalProps) => {
   const dispatch = useDispatch();

@@ -5,7 +5,7 @@ import {
   addTodo,
   updateTodo,
   deleteTodo,
-} from '../actions/todos';
+} from '../actions';
 
 const headers = {
   'Content-type': 'application/json; charset=UTF-8',

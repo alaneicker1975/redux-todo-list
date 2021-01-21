@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { todoActions } from '../actions/todos';
+import { todoActions } from '../actions';
 
 const initalState = {
   todos: [],
