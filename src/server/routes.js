@@ -31,13 +31,13 @@ router.get('/:id', async (req, res) => {
 router.put('/', async (req, res) => {
   try {
     const { body } = req;
-    const { lastID } = await db.query({
+    const { insertId } = await db.query({
       query: 'INSERT INTO todos SET ?',
       data: body,
     });
 
-    if (lastID) {
-      res.status(200).send({});
+    if (insertId) {
+      res.status(200).send({ insertId });
     } else {
       res.status(500).send({ err: 'Could not insert' });
     }

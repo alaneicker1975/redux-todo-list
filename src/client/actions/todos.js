@@ -29,7 +29,7 @@ export const getTodos = () => async (dispatch) => {
 
 // PUT: Todo
 // ------------------------------------------------------------------------
-export const addNewTodo = (data) => async (dispatch) => {
+export const addTodo = (data) => async (dispatch) => {
   try {
     const res = await fetch(`http://localhost:4000/api/todos/`, {
       method: 'PUT',
@@ -39,11 +39,11 @@ export const addNewTodo = (data) => async (dispatch) => {
       body: JSON.stringify(data),
     });
 
-    const { err } = await res.json();
+    const { insertId, err } = await res.json();
 
     if (err) setError(dispatch, err);
 
-    dispatch({ type: ADD_TODO, payload: data });
+    dispatch({ type: ADD_TODO, payload: { id: insertId, ...data } });
   } catch (err) {
     setError(dispatch, err.message);
   }

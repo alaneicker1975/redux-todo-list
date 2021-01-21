@@ -1,17 +1,19 @@
-.todo-list-wrapper {
-  border: rem(1) solid $blue-gray-800;
-}
-
 .todo-list {
-  & > * + * {
+  border: rem(1) solid $blue-gray-800;
+
+  ul {
     border-top: rem(1) solid $blue-gray-800;
   }
 
-  & > :nth-child(even) {
+  ul > * + * {
+    border-top: rem(1) solid $blue-gray-800;
+  }
+
+  ul > :nth-child(even) {
     background: lighten($blue-gray-900, 2%);
   }
 
-  &__item {
+  ul > li {
     align-items: center;
     display: flex;
     padding: rem(16);
@@ -25,6 +27,15 @@
     }
   }
 
+  &__add-form {
+    padding: rem(16);
+  }
+
+  &__add-input {
+    background: $blue-gray-800;
+    color: $white;
+  }
+
   &__input {
     background: transparent;
     color: $white;
@@ -32,7 +43,7 @@
     height: rem(28);
   }
 
-  &__update-status-btn {
+  &__status-btn {
     height: rem(20);
     width: rem(20);
     border-radius: 50%;
@@ -44,5 +55,17 @@
     &:hover {
       background: none;
     }
+  }
+
+  ::placeholder {
+    color: $blue-gray-200;
+  }
+
+  :-ms-input-placeholder {
+    color: $blue-gray-200;
+  }
+
+  ::-webkit-input-placeholder {
+    color: $blue-gray-200;
   }
 }

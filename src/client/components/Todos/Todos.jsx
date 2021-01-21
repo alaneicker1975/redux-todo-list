@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { faTimes, faListUl, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faListUl } from '@fortawesome/free-solid-svg-icons';
 import { Button, FormField, Header } from '@atomikui/core';
+import AddTodoForm from '../AddTodoForm';
 import withTodoActions from './withTodoActions';
 
-const Todos = ({ headerText, todos, onDelete, onAdd, onUpdate, ...others }) => (
-  <div className="todo-list-wrapper">
+const Todos = ({ headerText, todos, onDelete, onAdd, onUpdate }) => (
+  <div className="todo-list">
     <Header
       backgroundColor="#1f2a30"
       logo={<Icon icon={faListUl} color="white" />}
@@ -16,16 +17,13 @@ const Todos = ({ headerText, todos, onDelete, onAdd, onUpdate, ...others }) => (
       logoFont="'Barlow Condensed', Arial, Helvetica, sans-serif"
       linkColor="white"
       menuToggleColor="white"
-    >
-      <Button size="md" theme="blue">
-        <Icon icon={faPlus} color="white" /> Add Todo
-      </Button>
-    </Header>
-    <ul className="todo-list" {...others}>
+    />
+    <AddTodoForm onSubmit={(title) => onAdd({ title })} />
+    <ul>
       {todos.map(({ id, title, isComplete }) => (
-        <li key={id} className="todo-list__item">
+        <li key={id}>
           <Button
-            className="todo-list__update-status-btn"
+            className="todo-list__status-btn"
             size="sm"
             checked={isComplete}
             theme={isComplete ? 'lime' : 'red'}
