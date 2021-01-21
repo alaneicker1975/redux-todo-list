@@ -13,7 +13,10 @@ import {
   deleteTodo,
 } from '../actions/todos';
 
-const fetchContentType = 'application/json; charset=UTF-8';
+const headers = {
+  'Content-type': 'application/json; charset=UTF-8',
+};
+
 const baseUrl = process.env.BASE_URL;
 
 const api = ({ dispatch }) => (next) => async (action) => {
@@ -36,9 +39,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
           const data = action.payload;
           const res = await fetch(baseUrl, {
             method: 'PUT',
-            headers: {
-              'Content-type': fetchContentType,
-            },
+            headers,
             body: JSON.stringify(data),
           });
 
@@ -56,9 +57,7 @@ const api = ({ dispatch }) => (next) => async (action) => {
           const { id, data } = action.payload;
           const res = await fetch(`${baseUrl}${id}`, {
             method: 'PATCH',
-            headers: {
-              'Content-type': fetchContentType,
-            },
+            headers,
             body: JSON.stringify(data),
           });
 
@@ -74,11 +73,10 @@ const api = ({ dispatch }) => (next) => async (action) => {
       case FETCH_DELETE:
         try {
           const id = action.payload;
+
           const res = await fetch(`${baseUrl}${id}`, {
             method: 'DELETE',
-            headers: {
-              'Content-type': fetchContentType,
-            },
+            headers,
           });
 
           const { err } = await res.json();
