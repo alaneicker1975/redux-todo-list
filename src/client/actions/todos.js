@@ -11,7 +11,7 @@ const fetchContentType = 'application/json; charset=UTF-8';
 // Action Creators
 // ------------------------------------------------------------------------
 
-const setMessage = (text) => ({
+export const setMessage = (text) => ({
   type: SET_MESSAGE,
   payload: { type: 'error', text },
 });
