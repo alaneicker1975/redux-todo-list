@@ -13,7 +13,7 @@ const headers = {
 
 const baseUrl = process.env.BASE_URL;
 
-const api = ({ dispatch }) => (next) => async (action) => {
+const api = ({ dispatch }) => (next) => async (action = { type: '' }) => {
   switch (action.type) {
     case todoActions.fetchGet.toString():
       try {
@@ -84,9 +84,8 @@ const api = ({ dispatch }) => (next) => async (action) => {
       }
       break;
     default:
+      next(action);
   }
-
-  next(action);
 };
 
 export default api;

@@ -1,38 +1,35 @@
-import {
-  SET_TODOS,
-  ADD_TODO,
-  UPDATE_TODO,
-  DELETE_TODO,
-} from '../constants/action-types';
+import { handleActions } from 'redux-actions';
+import { todoActions } from '../actions/todos';
 
 const initalState = {
   todos: [],
   todo: {},
 };
 
-const todosReducer = (state = initalState, action) => {
-  const { type, payload } = action;
-
-  switch (type) {
-    case SET_TODOS:
-      return { ...state, todos: payload };
-    case ADD_TODO:
-      return { ...state, todos: [...state.todos, payload] };
-    case UPDATE_TODO:
-      return {
-        ...state,
-        todos: state.todos.map((todo) =>
-          todo.id === payload.id ? { ...todo, ...payload.data } : todo,
-        ),
-      };
-    case DELETE_TODO:
-      return {
-        ...state,
-        todos: state.todos.filter((todo) => todo.id !== payload),
-      };
-    default:
-      return state;
-  }
-};
+const todosReducer = handleActions(
+  {
+    // SET_TODOS
+    [todoActions.setTodos.toString()]: (state, action) => ({
+      todos: action.payload,
+    }),
+    // ADD_TODO
+    [todoActions.addTodo.toString()]: (state, action) => ({
+      todos: [...state.todos, action.payload],
+    }),
+    // UPDATE_TODO
+    [todoActions.updateTodo.toString()]: (state, action) => ({
+      todos: state.todos.map((todo) =>
+        todo.id === action.payload.id
+          ? { ...todo, ...action.payload.data }
+          : todo,
+      ),
+    }),
+    // DELETE_TODO
+    [todoActions.deleteTodo.toString()]: (state, action) => ({
+      todos: state.todos.filter((todo) => todo.id !== action.payload),
+    }),
+  },
+  initalState.todos,
+);
 
 export default todosReducer;
