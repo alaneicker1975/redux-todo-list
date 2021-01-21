@@ -7,6 +7,11 @@ const db = new DB();
 router.get('/', async (req, res) => {
   try {
     const data = await db.query({ query: `SELECT * FROM todos` });
+
+    if (!data) {
+      throw new Error('Could not fetch');
+    }
+
     res.status(200).send({ data });
   } catch (err) {
     res.status(500).send({ err: err.message });
@@ -21,11 +26,11 @@ router.put('/', async (req, res) => {
       data: body,
     });
 
-    if (insertId) {
-      res.status(200).send({ insertId });
-    } else {
-      res.status(500).send({ err: 'Could not insert' });
+    if (!insertId) {
+      throw new Error('Could not insert');
     }
+
+    res.status(201).send({ insertId });
   } catch (err) {
     res.status(500).send({ err: err.message });
   }
@@ -43,11 +48,11 @@ router.patch('/:id', async (req, res) => {
       data: body,
     });
 
-    if (affectedRows > 0) {
-      res.status(200).send({});
-    } else {
-      res.status(500).send({ err: 'could not update' });
+    if (affectedRows === 0) {
+      throw new Error('could not update');
     }
+
+    res.status(200).send({});
   } catch (err) {
     res.status(500).send({ err: err.message });
   }
@@ -62,11 +67,11 @@ router.delete('/:id', async (req, res) => {
       data: [id],
     });
 
-    if (affectedRows > 0) {
-      res.status(200).send({});
-    } else {
-      res.status(500).send({ err: 'could not delete' });
+    if (affectedRows === 0) {
+      throw new Error('could not delete');
     }
+
+    res.status(200).send({});
   } catch (err) {
     res.status(500).send({ err: err.message });
   }
