@@ -32,13 +32,17 @@ router.put('/', (req, res) => {});
 router.patch('/:id', async (req, res) => {
   try {
     const {
-      body: { isComplete },
+      body,
       params: { id },
     } = req;
 
+    const cols = Object.keys(body)
+      .map((col) => `${col} = ?`)
+      .join(',');
+
     const { affectedRows } = await db({
-      query: 'UPDATE todos SET isComplete = ? WHERE id = ?',
-      data: [isComplete, id],
+      query: `UPDATE todos SET ${cols} WHERE id = ?`,
+      data: [...Object.values(body), id],
     });
 
     if (affectedRows > 0) {

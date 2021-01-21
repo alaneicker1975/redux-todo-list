@@ -1,28 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { faTimes, faClipboardCheck } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faListUl, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Button, FormField, Header } from '@atomikui/core';
 import withTodoActions from './withTodoActions';
 
-const Todos = ({
-  headerText,
-  todos,
-  onDelete,
-  onAdd,
-  onUpdate,
-  onUpdateStatus,
-  ...others
-}) => (
+const Todos = ({ headerText, todos, onDelete, onAdd, onUpdate, ...others }) => (
   <div className="todo-list-wrapper">
     <Header
       backgroundColor="#1f2a30"
-      logo={<Icon icon={faClipboardCheck} color="white" />}
-      logoText={
-        <span style={{ textTransform: 'lowercase', marginLeft: '8px' }}>
-          {headerText}
-        </span>
-      }
+      logo={<Icon icon={faListUl} color="white" />}
+      logoText={<span style={{ marginLeft: '8px' }}>{headerText}</span>}
       logoFontSize={40}
       logoFontColor="white"
       logoFont="'Barlow Condensed', Arial, Helvetica, sans-serif"
@@ -30,7 +18,7 @@ const Todos = ({
       menuToggleColor="white"
     >
       <Button size="md" theme="blue">
-        + Add Todo
+        <Icon icon={faPlus} color="white" /> Add Todo
       </Button>
     </Header>
     <ul className="todo-list" {...others}>
@@ -41,15 +29,15 @@ const Todos = ({
             size="sm"
             checked={isComplete}
             theme={isComplete ? 'lime' : 'red'}
-            onClick={() => onUpdateStatus(isComplete, id)}
+            onClick={() => onUpdate(id, { isComplete: !isComplete })}
             aria-label={isComplete ? 'done' : 'pending'}
             title="click to update status"
           />
           <FormField
             aria-label="todo title"
             className="todo-list__input"
-            value={title}
-            onChange={(e) => onUpdate(id, e.target.value)}
+            defaultValue={title}
+            onBlur={(e) => onUpdate(id, { title: e.target.value })}
           />
           <Button
             className="todo-list__delete-btn"
@@ -78,7 +66,6 @@ Todos.propTypes = {
   onAdd: PropTypes.func,
   onDelete: PropTypes.func,
   onUpdate: PropTypes.func,
-  onUpdateStatus: PropTypes.func,
 };
 
 Todos.defaultProps = {
@@ -87,7 +74,6 @@ Todos.defaultProps = {
   onAdd: null,
   onDelete: null,
   onUpdate: null,
-  onUpdateStatus: null,
 };
 
 export default withTodoActions(Todos);

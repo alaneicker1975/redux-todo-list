@@ -24,22 +24,18 @@ const todosReducer = (state = initalState, action) => {
         todo: state.todos.find((todo) => todo.id === payload.id),
       };
     case ADD_TODO:
-      return { ...state, todos: [...state.todos, payload.todo] };
+      return { ...state, todos: [...state.todos, payload] };
     case UPDATE_TODO:
-      return { ...state };
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === payload.id ? { ...todo, ...payload.data } : todo,
+        ),
+      };
     case DELETE_TODO:
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== payload.id),
-      };
-    case UPDATE_TODO_STATUS:
-      return {
-        ...state,
-        todos: state.todos.map((todo) =>
-          todo.id === payload.id
-            ? { ...todo, isComplete: payload.isComplete }
-            : todo,
-        ),
       };
     default:
       return state;

@@ -40,32 +40,39 @@ export const getTodo = (id) => (dispatch) => {
 
 // PUT: Todo
 // ------------------------------------------------------------------------
-export const addNewTodo = (reqData) => (dispatch) => {
+export const addNewTodo = (data) => (dispatch) => {
   fetch(`http://localhost:4000/api/todos/`, {
     method: 'PUT',
     headers: {
       'Content-type': fetchContentType,
     },
-    body: JSON.stringify(reqData),
+    body: JSON.stringify(data),
   })
     .then((res) => res.json())
-    .then(() => dispatch({ type: ADD_TODO, payload: reqData }))
+    .then(() => dispatch({ type: ADD_TODO, payload: data }))
     .catch((err) => {});
 };
 
-// PATCH: Todo
+// Patch: Todo status
 // ------------------------------------------------------------------------
-export const updateTodo = (id, { title }) => (dispatch) => {
-  fetch(`http://localhost:4000/api/todos/${id}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-type': fetchContentType,
-    },
-    body: JSON.stringify({ title }),
-  })
-    .then((res) => res.json())
-    .then(() => dispatch({ type: UPDATE_TODO, payload: { id, data: reqData } }))
-    .catch((err) => {});
+export const updateTodo = (id, data) => async (dispatch) => {
+  try {
+    const res = await fetch(`http://localhost:4000/api/todos/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-type': fetchContentType,
+      },
+      body: JSON.stringify(data),
+    });
+
+    const { err } = await res.json();
+
+    if (err) setError(dispatch, err);
+
+    dispatch({ type: UPDATE_TODO, payload: { id, data } });
+  } catch (err) {
+    setError(dispatch, err.message);
+  }
 };
 
 // DELETE: Todo
@@ -84,28 +91,6 @@ export const deleteTodo = (id) => async (dispatch) => {
     if (err) setError(dispatch, err);
 
     dispatch({ type: DELETE_TODO, payload: { id } });
-  } catch (err) {
-    setError(dispatch, err.message);
-  }
-};
-
-// Patch: Todo status
-// ------------------------------------------------------------------------
-export const updateTodoStatus = (id, { isComplete }) => async (dispatch) => {
-  try {
-    const res = await fetch(`http://localhost:4000/api/todos/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-type': fetchContentType,
-      },
-      body: JSON.stringify({ isComplete }),
-    });
-
-    const { err } = await res.json();
-
-    if (err) setError(dispatch, err);
-
-    dispatch({ type: UPDATE_TODO_STATUS, payload: { id, isComplete } });
   } catch (err) {
     setError(dispatch, err.message);
   }
