@@ -3,25 +3,25 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const pool = mysql.createPool({
-  connectionLimit: 10,
-  socketPath: process.env.SOCKET_PATH,
-  host: process.env.HOST,
-  user: process.env.USER_NAME,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
-});
-
-pool.config.connectionLimit = 400;
-
 class DB {
   constructor() {
     this.connection = null;
+
+    this.pool = mysql.createPool({
+      connectionLimit: 10,
+      socketPath: process.env.SOCKET_PATH,
+      host: process.env.HOST,
+      user: process.env.USER_NAME,
+      password: process.env.PASSWORD,
+      database: process.env.DATABASE,
+    });
+
+    this.pool.config.connectionLimit = 400;
   }
 
   query = ({ query, data, isArray }) =>
     new Promise((resolve, reject) => {
-      pool.getConnection((err, connection) => {
+      this.pool.getConnection((err, connection) => {
         this.connection = connection;
 
         if (err) {
