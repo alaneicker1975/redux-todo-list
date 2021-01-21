@@ -10,3 +10,4 @@ Stack includes:
 - React Redux Hooks
 - Redux
 - Redux Thunk
+- Custom middleware
