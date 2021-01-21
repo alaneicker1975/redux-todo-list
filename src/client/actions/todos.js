@@ -1,10 +1,8 @@
 import {
   FETCH_TODOS,
-  FETCH_TODO,
   ADD_TODO,
   UPDATE_TODO,
   DELETE_TODO,
-  UPDATE_TODO_STATUS,
   SET_MESSAGE,
 } from '../constants/action-types';
 
@@ -27,15 +25,6 @@ export const getTodos = () => async (dispatch) => {
   } catch (err) {
     setError(dispatch, err.message);
   }
-};
-
-// GET: Todo
-// ------------------------------------------------------------------------
-export const getTodo = (id) => (dispatch) => {
-  fetch(`http://localhost:4000/api/todos/${id}`)
-    .then((res) => res.json())
-    .then((data) => dispatch({ type: FETCH_TODO, payload: data }))
-    .catch((err) => {});
 };
 
 // PUT: Todo
