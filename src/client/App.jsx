@@ -7,6 +7,7 @@ const App = () => {
   const {
     messagingReducer: { message },
   } = useSelector((state) => state);
+
   return (
     <div className="App">
       <main>

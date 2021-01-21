@@ -3,7 +3,7 @@ import { todoActions } from '../actions/todos';
 
 const initalState = {
   todos: [],
-  todo: {},
+  message: null,
 };
 
 const todosReducer = handleActions(
@@ -29,7 +29,7 @@ const todosReducer = handleActions(
       todos: state.todos.filter((todo) => todo.id !== action.payload),
     }),
   },
-  initalState.todos,
+  initalState,
 );
 
 export default todosReducer;

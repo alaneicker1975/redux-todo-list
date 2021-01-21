@@ -1,20 +1,18 @@
-import { SET_MESSAGE, CLEAR_MESSAGE } from '../constants/action-types';
+import { handleActions } from 'redux-actions';
+import { todoActions } from '../actions/todos';
 
 const initialState = {
   message: null,
 };
 
-const messagingReducer = (state = initialState, action) => {
-  const { type, payload } = action;
-
-  switch (type) {
-    case SET_MESSAGE:
-      return { ...state, message: payload };
-    case CLEAR_MESSAGE:
-      return { ...state, message: null };
-    default:
-      return state;
-  }
-};
+const messagingReducer = handleActions(
+  {
+    // SET_MESSAGE
+    [todoActions.setMessage.toString()]: (state, action) => ({
+      message: action.payload,
+    }),
+  },
+  initialState,
+);
 
 export default messagingReducer;
