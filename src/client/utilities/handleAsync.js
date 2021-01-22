@@ -1,4 +1,5 @@
 import store from '../store';
+import { setMessage } from '../actions';
 
 const handleAsync = (promise) => {
   return promise

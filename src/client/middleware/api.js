@@ -1,12 +1,5 @@
 import handleAsync from '../utilities/handleAsync';
-import {
-  actions,
-  setMessage,
-  setTodos,
-  addTodo,
-  updateTodo,
-  deleteTodo,
-} from '../actions';
+import { actions, setTodos, addTodo, updateTodo, deleteTodo } from '../actions';
 
 const headers = {
   'Content-type': 'application/json; charset=UTF-8',
