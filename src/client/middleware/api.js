@@ -1,3 +1,4 @@
+import handleAsync from '../utilities/handleAsync';
 import {
   actions,
   setMessage,
@@ -16,72 +17,38 @@ const baseUrl = process.env.BASE_URL;
 const api = ({ dispatch }) => (next) => async (action = { type: '' }) => {
   switch (action.type) {
     case actions.fetchGet.toString():
-      try {
-        const res = await fetch(baseUrl);
-        const { err, data } = await res.json();
-
-        if (err) throw new Error(err);
-
-        dispatch(setTodos(data));
-      } catch (err) {
-        dispatch(setMessage(err.message));
-      }
+      const getResData = await handleAsync(fetch(baseUrl));
+      dispatch(setTodos(getResData.data));
       break;
     case actions.fetchPut.toString():
-      try {
-        const data = action.payload;
-
-        const res = await fetch(baseUrl, {
+      const { insertId } = await handleAsync(
+        fetch(baseUrl, {
           method: 'PUT',
           headers,
-          body: JSON.stringify(data),
-        });
-
-        const { insertId, err } = await res.json();
-
-        if (err) throw new Error(err);
-
-        dispatch(addTodo(insertId, data));
-      } catch (err) {
-        dispatch(setMessage(err.message));
-      }
+          body: JSON.stringify(action.payload),
+        }),
+      );
+      dispatch(addTodo(insertId, action.payload));
       break;
     case actions.fetchPatch.toString():
-      try {
-        const { id, data } = action.payload;
-
-        const res = await fetch(`${baseUrl}${id}`, {
+      const { id, data } = action.payload;
+      handleAsync(
+        fetch(`${baseUrl}${id}`, {
           method: 'PATCH',
           headers,
           body: JSON.stringify(data),
-        });
-
-        const { err } = await res.json();
-
-        if (err) throw new Error(err);
-
-        dispatch(updateTodo(id, data));
-      } catch (err) {
-        dispatch(setMessage(err.message));
-      }
+        }),
+      );
+      dispatch(updateTodo(id, data));
       break;
     case actions.fetchDelete.toString():
-      try {
-        const id = action.payload;
-
-        const res = await fetch(`${baseUrl}${id}`, {
+      await handleAsync(
+        fetch(`${baseUrl}${action.payload}`, {
           method: 'DELETE',
           headers,
-        });
-
-        const { err } = await res.json();
-
-        if (err) throw new Error(err);
-
-        dispatch(deleteTodo(id));
-      } catch (err) {
-        dispatch(setMessage(err.message));
-      }
+        }),
+      );
+      dispatch(deleteTodo(action.payload));
       break;
     default:
       next(action);
