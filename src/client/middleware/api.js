@@ -16,10 +16,12 @@ const baseUrl = process.env.BASE_URL;
 
 const api = ({ dispatch }) => (next) => async (action = { type: '' }) => {
   switch (action.type) {
+    // Get todos
     case actions.fetchGet.toString():
       const getResData = await handleAsync(fetch(baseUrl));
       dispatch(setTodos(getResData.data));
       break;
+    // Adds a todo
     case actions.fetchPut.toString():
       const { insertId } = await handleAsync(
         fetch(baseUrl, {
@@ -30,6 +32,7 @@ const api = ({ dispatch }) => (next) => async (action = { type: '' }) => {
       );
       dispatch(addTodo(insertId, action.payload));
       break;
+    // Updates a todo
     case actions.fetchPatch.toString():
       const { id, data } = action.payload;
       handleAsync(
@@ -41,6 +44,7 @@ const api = ({ dispatch }) => (next) => async (action = { type: '' }) => {
       );
       dispatch(updateTodo(id, data));
       break;
+    // Deletes a todo
     case actions.fetchDelete.toString():
       await handleAsync(
         fetch(`${baseUrl}${action.payload}`, {
@@ -50,6 +54,7 @@ const api = ({ dispatch }) => (next) => async (action = { type: '' }) => {
       );
       dispatch(deleteTodo(action.payload));
       break;
+    // If action doesn;t match just return next action
     default:
       next(action);
   }
