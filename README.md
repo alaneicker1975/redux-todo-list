@@ -7,7 +7,7 @@ Stack includes:
 - Express
 - MySQL
 - React
-- React Redux Hooks
 - Redux
-- Redux Thunk
-- Custom middleware
+- React Redux
+- Redux Actions
+- Custom middleware to handle asynchronous requests
