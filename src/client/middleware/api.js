@@ -47,7 +47,7 @@ const api = ({ dispatch }) => (next) => async (action = { type: '' }) => {
       );
       dispatch(deleteTodo(action.payload));
       break;
-    // If action doesn;t match just return next action
+    // If action doesn't match just return next action
     default:
       next(action);
   }
