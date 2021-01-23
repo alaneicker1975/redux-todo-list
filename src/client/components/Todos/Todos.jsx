@@ -34,7 +34,7 @@ const Todos = ({ headerText }) => {
     <div className="todo-list">
       <Header
         backgroundColor="#1f2a30"
-        logoText={<span style={{ marginLeft: '8px' }}>{headerText}</span>}
+        logoText={<h1 style={{ marginLeft: '8px' }}>{headerText}</h1>}
         logoFontSize={36}
         logoFontColor="white"
         logoFont="'Barlow Condensed', Arial, Helvetica, sans-serif"
