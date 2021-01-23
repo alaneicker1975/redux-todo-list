@@ -5,6 +5,7 @@ dotenv.config();
 
 class DB {
   constructor() {
+    this.connection = null;
     this.pool = mysql.createPool({
       host: process.env.HOST,
       user: process.env.USER_NAME,
@@ -14,9 +15,6 @@ class DB {
         socketPath: process.env.SOCKET_PATH,
       }),
     });
-
-    this.pool.config.connectionLimit = 400;
-    this.connection = null;
   }
 
   query = ({ query, data, isArray }) =>
