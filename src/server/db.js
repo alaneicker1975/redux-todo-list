@@ -7,11 +7,13 @@ class DB {
   constructor() {
     this.pool = mysql.createPool({
       connectionLimit: 10,
-      socketPath: process.env.SOCKET_PATH,
       host: process.env.HOST,
       user: process.env.USER_NAME,
       password: process.env.PASSWORD,
       database: process.env.DATABASE,
+      ...(process.env.NODE_ENV !== 'PRODUCTION' && {
+        socketPath: process.env.SOCKET_PATH,
+      }),
     });
 
     this.pool.config.connectionLimit = 400;
