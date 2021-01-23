@@ -46,38 +46,42 @@ const Todos = ({ headerText }) => {
         menuToggleColor="white"
       />
       <AddTodoForm onSubmit={(title) => onAdd({ title })} />
-      <ul>
-        {todos.map(({ id, title, isComplete }) => (
-          <li key={id}>
-            <Button
-              className="todo-list__status-btn"
-              size="sm"
-              checked={isComplete}
-              theme={isComplete ? 'lime' : 'red'}
-              onClick={() => onUpdate(id, { isComplete: !isComplete })}
-              aria-label={isComplete ? 'done' : 'pending'}
-              title="click to update status"
-            >
-              <Icon icon={isComplete ? faCheck : faExclamation} />
-            </Button>
-            <FormField
-              aria-label="todo title"
-              className="todo-list__input"
-              defaultValue={title}
-              onBlur={(e) => onUpdate(id, { title: e.target.value })}
-            />
-            <Button
-              className="todo-list__delete-btn"
-              theme="hollow"
-              size="sm"
-              onClick={() => onDelete(id)}
-              aria-label="delete"
-            >
-              <Icon icon={faTimes} size="2x" color="white" />
-            </Button>
-          </li>
-        ))}
-      </ul>
+      {todos.length > 0 ? (
+        <ul>
+          {todos.map(({ id, title, isComplete }) => (
+            <li key={id}>
+              <Button
+                className="todo-list__status-btn"
+                size="sm"
+                checked={isComplete}
+                theme={isComplete ? 'lime' : 'red'}
+                onClick={() => onUpdate(id, { isComplete: !isComplete })}
+                aria-label={isComplete ? 'done' : 'pending'}
+                title="click to update status"
+              >
+                <Icon icon={isComplete ? faCheck : faExclamation} />
+              </Button>
+              <FormField
+                aria-label="todo title"
+                className="todo-list__input"
+                defaultValue={title}
+                onBlur={(e) => onUpdate(id, { title: e.target.value })}
+              />
+              <Button
+                className="todo-list__delete-btn"
+                theme="hollow"
+                size="sm"
+                onClick={() => onDelete(id)}
+                aria-label="delete"
+              >
+                <Icon icon={faTimes} size="2x" color="white" />
+              </Button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div className="padding-16">No todos</div>
+      )}
     </div>
   );
 };
