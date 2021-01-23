@@ -1,6 +1,6 @@
 # Redux Todo List
 
-A simple demo app demonstrating state management with Redux.
+An app demonstrating state management with Redux and custom middleware to handle data fetching. The API is powered by Express and MySQL.
 
 Stack includes:
 
