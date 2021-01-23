@@ -6,7 +6,6 @@ dotenv.config();
 class DB {
   constructor() {
     this.pool = mysql.createPool({
-      connectionLimit: 10,
       host: process.env.HOST,
       user: process.env.USER_NAME,
       password: process.env.PASSWORD,
