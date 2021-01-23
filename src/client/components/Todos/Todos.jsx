@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGet, fetchPut, fetchPatch, fetchDelete } from '../../actions';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTimes,
+  faCheck,
+  faExclamation,
+} from '@fortawesome/free-solid-svg-icons';
 import { Button, FormField, Header } from '@atomikui/core';
 import AddTodoForm from '../AddTodoForm';
 
@@ -53,7 +57,9 @@ const Todos = ({ headerText }) => {
               onClick={() => onUpdate(id, { isComplete: !isComplete })}
               aria-label={isComplete ? 'done' : 'pending'}
               title="click to update status"
-            />
+            >
+              <Icon icon={isComplete ? faCheck : faExclamation} />
+            </Button>
             <FormField
               aria-label="todo title"
               className="todo-list__input"

@@ -39,14 +39,17 @@
   &__input {
     background: transparent;
     color: $white;
-    padding: 0;
     height: rem(28);
+    padding: 0;
   }
 
   &__status-btn {
-    height: rem(20);
-    width: rem(20);
+    align-items: center;
     border-radius: 50%;
+    display: flex;
+    height: rem(20);
+    justify-content: center;
+    width: rem(20);
   }
 
   &__delete-btn {
