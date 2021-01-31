@@ -1,17 +1,18 @@
-import { createActions, createAction } from 'redux-actions';
+import { createActions } from 'redux-actions';
+import * as types from './types';
 import store from '../store';
 
 export const actions = createActions({
-  SET_TODOS: (payload) => payload,
-  ADD_TODO: (payload) => payload,
-  UPDATE_TODO: (payload) => payload,
-  DELETE_TODO: (payload) => payload,
-  FETCH_GET: (payload) => payload,
-  FETCH_PUT: (payload) => payload,
-  FETCH_PATCH: (payload) => payload,
-  FETCH_DELETE: (payload) => payload,
-  SET_MESSAGE: (payload) => payload,
-  CLEAR_MESSAGE: () => null,
+  [types.SET_TODOS]: (payload) => payload,
+  [types.ADD_TODO]: (payload) => payload,
+  [types.UPDATE_TODO]: (payload) => payload,
+  [types.DELETE_TODO]: (payload) => payload,
+  [types.FETCH_GET]: (payload) => payload,
+  [types.FETCH_PUT]: (payload) => payload,
+  [types.FETCH_PATCH]: (payload) => payload,
+  [types.FETCH_DELETE]: (payload) => payload,
+  [types.SET_MESSAGE]: (payload) => payload,
+  [types.CLEAR_MESSAGE]: () => null,
 });
 
 export const fetchGet = () => {

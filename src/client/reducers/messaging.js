@@ -1,18 +1,18 @@
 import { handleActions } from 'redux-actions';
-import { actions } from '../actions';
+import * as types from '../actions/types';
 
-const initialState = {
+export const initialState = {
   message: null,
 };
 
 const messagingReducer = handleActions(
   {
     // SET_MESSAGE
-    [actions.setMessage.toString()]: (state, action) => ({
+    [types.SET_MESSAGE]: (state, action) => ({
       message: action.payload,
     }),
     // CLEAR_MESSAGE
-    [actions.clearMessage.toString()]: (state, action) => ({
+    [types.CLEAR_MESSAGE]: (state, action) => ({
       message: null,
     }),
   },

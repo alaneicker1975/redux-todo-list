@@ -1,23 +1,22 @@
 import { handleActions } from 'redux-actions';
-import { actions } from '../actions';
+import * as types from '../actions/types';
 
-const initalState = {
+export const initalState = {
   todos: [],
-  message: null,
 };
 
 const todosReducer = handleActions(
   {
     // SET_TODOS
-    [actions.setTodos.toString()]: (state, action) => ({
+    [types.SET_TODOS]: (state, action) => ({
       todos: action.payload,
     }),
     // ADD_TODO
-    [actions.addTodo.toString()]: (state, action) => ({
+    [types.ADD_TODO]: (state, action) => ({
       todos: [...state.todos, action.payload],
     }),
     // UPDATE_TODO
-    [actions.updateTodo.toString()]: (state, action) => ({
+    [types.UPDATE_TODO]: (state, action) => ({
       todos: state.todos.map((todo) =>
         todo.id === action.payload.id
           ? { ...todo, ...action.payload.data }
@@ -25,7 +24,7 @@ const todosReducer = handleActions(
       ),
     }),
     // DELETE_TODO
-    [actions.deleteTodo.toString()]: (state, action) => ({
+    [types.DELETE_TODO]: (state, action) => ({
       todos: state.todos.filter((todo) => todo.id !== action.payload),
     }),
   },
