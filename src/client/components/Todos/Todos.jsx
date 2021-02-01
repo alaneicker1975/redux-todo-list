@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchGet, fetchPut, fetchPatch, fetchDelete } from '../../actions';
+import {
+  fetchGet,
+  fetchPut,
+  fetchPatch,
+  fetchDelete,
+} from '../../actions/thunks';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import {
   faTimes,

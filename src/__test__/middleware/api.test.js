@@ -1,9 +1,10 @@
 import configureStore from 'redux-mock-store';
-import { fetchGet } from '../../client/actions';
-import api from '../../client/middleware/api';
+import thunk from 'redux-thunk';
+import { fetchGet } from '../../client/actions/thunks';
+import * as actions from '../../client/actions/types';
 import { initalState } from '../../client/reducers/todos';
 
-const mockStore = configureStore([api]);
+const mockStore = configureStore([thunk]);
 
 global.fetch = jest.fn(() =>
   Promise.resolve({
@@ -21,8 +22,14 @@ describe('API middleware', () => {
     store = mockStore(initalState);
   });
 
-  it('should fetch todos', () => {
-    store.dispatch(fetchGet());
-    console.log(store.getActions());
+  it('should fetch todos', async () => {
+    store.dispatch(fetchGet()).then(() => {
+      expect(store.getActions()).toEqual([
+        {
+          type: actions.SET_TODOS,
+          payload: [{ id: 1, title: 'My todo', isComplete: false }],
+        },
+      ]);
+    });
   });
 });
