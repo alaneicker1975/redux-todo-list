@@ -1,5 +1,9 @@
-import store from '../../client/store';
+import configureStore from 'redux-mock-store';
 import { fetchGet } from '../../client/actions';
+import api from '../../client/middleware/api';
+import { initalState } from '../../client/reducers/todos';
+
+const mockStore = configureStore([api]);
 
 global.fetch = jest.fn(() =>
   Promise.resolve({
@@ -11,8 +15,14 @@ global.fetch = jest.fn(() =>
 );
 
 describe('API middleware', () => {
+  let store;
+
+  beforeEach(() => {
+    store = mockStore(initalState);
+  });
+
   it('should fetch todos', () => {
     store.dispatch(fetchGet());
-    //expect(store.todos).toEqual([]);
+    console.log(store.getActions());
   });
 });

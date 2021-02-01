@@ -2,7 +2,7 @@ import { createActions } from 'redux-actions';
 import * as types from './types';
 import store from '../store';
 
-export const actions = createActions({
+const actions = createActions({
   [types.SET_TODOS]: (payload) => payload,
   [types.ADD_TODO]: (payload) => payload,
   [types.UPDATE_TODO]: (payload) => payload,
