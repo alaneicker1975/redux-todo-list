@@ -49,7 +49,7 @@ describe('Thunks', () => {
   });
 
   it('should update a todo', async () => {
-    const payload = { title: 'My todo', isComplete: false };
+    const payload = { title: 'My todo', isComplete: true };
     await store.dispatch(fetchPatch(payload));
     expect(store.getActions()).toEqual([
       {
