@@ -11,7 +11,6 @@ const actions = createActions({
   [types.FETCH_PATCH]: (payload) => payload,
   [types.FETCH_DELETE]: (payload) => payload,
   [types.SET_MESSAGE]: (payload) => payload,
-  [types.CLEAR_MESSAGE]: () => null,
 });
 
 export default actions;
