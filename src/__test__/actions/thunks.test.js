@@ -1,6 +1,11 @@
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { fetchGet } from '../../client/actions/thunks';
+import {
+  fetchGet,
+  fetchPut,
+  fetchPatch,
+  fetchDelete,
+} from '../../client/actions/thunks';
 import * as types from '../../client/actions/types';
 import { initalState } from '../../client/reducers/todos';
 
@@ -32,9 +37,35 @@ describe('Thunks', () => {
     ]);
   });
 
-  it('should add a todo', () => {});
+  it('should add a todo', async () => {
+    const payload = { title: 'My todo', isComplete: false };
+    await store.dispatch(fetchPut(payload));
+    expect(store.getActions()).toEqual([
+      {
+        type: types.ADD_TODO,
+        payload: payload,
+      },
+    ]);
+  });
 
-  it('should update a todo', () => {});
+  it('should update a todo', async () => {
+    const payload = { title: 'My todo', isComplete: false };
+    await store.dispatch(fetchPatch(payload));
+    expect(store.getActions()).toEqual([
+      {
+        type: types.UPDATE_TODO,
+        payload: payload,
+      },
+    ]);
+  });
 
-  it('should delete a todo', () => {});
+  it('should delete a todo', async () => {
+    await store.dispatch(fetchDelete(1));
+    expect(store.getActions()).toEqual([
+      {
+        type: types.DELETE_TODO,
+        payload: 1,
+      },
+    ]);
+  });
 });
