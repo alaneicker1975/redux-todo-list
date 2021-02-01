@@ -1,4 +1,3 @@
-import store from '../store';
 import actions from './action-creators';
 import handleAsync from '../../client/utilities/handleAsync';
 

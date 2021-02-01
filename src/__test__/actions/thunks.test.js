@@ -32,4 +32,10 @@ describe('Thunks', () => {
       ]);
     });
   });
+
+  it('should add a todo', () => {});
+
+  it('should update a todo', () => {});
+
+  it('should delete a todo', () => {});
 });
