@@ -22,7 +22,7 @@ describe('Thunks', () => {
     store = mockStore(initalState);
   });
 
-  it('should fetch todos', async () => {
+  it('should fetch todos', (done) => {
     store.dispatch(fetchGet()).then(() => {
       expect(store.getActions()).toEqual([
         {
@@ -30,6 +30,7 @@ describe('Thunks', () => {
           payload: [{ id: 1, title: 'My todo', isComplete: false }],
         },
       ]);
+      done();
     });
   });
 
