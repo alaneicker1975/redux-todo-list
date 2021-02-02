@@ -3,7 +3,7 @@ import * as types from '../../client/actions/types';
 
 describe('Todos reducer', () => {
   beforeEach(() => {
-    initalState.todos = [{ id: 1, title: 'My Todo', isComplete: false }];
+    initalState.todos = [];
   });
 
   it('should return the intial state', () => {
@@ -11,7 +11,7 @@ describe('Todos reducer', () => {
   });
 
   it('Should return todos', () => {
-    const payload = [{ id: 1, title: 'My Todo', isComplete: true }];
+    const payload = [{ id: 2, title: 'My Todo', isComplete: true }];
     expect(
       todosReducer(undefined, {
         type: types.SET_TODOS,
@@ -33,6 +33,7 @@ describe('Todos reducer', () => {
   });
 
   it('Should delete a todo', () => {
+    initalState.todos = [{ id: 1, title: 'My Todo', isComplete: false }];
     expect(
       todosReducer(undefined, {
         type: types.DELETE_TODO,
@@ -42,6 +43,7 @@ describe('Todos reducer', () => {
   });
 
   it('Should update a todo', () => {
+    initalState.todos = [{ id: 1, title: 'My Todo', isComplete: false }];
     expect(
       todosReducer(undefined, {
         type: types.UPDATE_TODO,
