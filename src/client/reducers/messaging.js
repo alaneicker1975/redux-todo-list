@@ -8,12 +8,8 @@ export const initialState = {
 const messagingReducer = handleActions(
   {
     // SET_MESSAGE
-    [types.SET_MESSAGE]: (state, action) => ({
+    [types.SET_MESSAGE]: (_state, action) => ({
       message: action.payload,
-    }),
-    // CLEAR_MESSAGE
-    [types.CLEAR_MESSAGE]: (state, action) => ({
-      message: null,
     }),
   },
   initialState,

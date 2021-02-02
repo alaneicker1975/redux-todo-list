@@ -9,7 +9,7 @@ const todosReducer = handleActions(
   {
     // SET_TODOS
     [types.SET_TODOS]: (state, action) => ({
-      todos: action.payload,
+      todos: [...state.todos, ...action.payload],
     }),
     // ADD_TODO
     [types.ADD_TODO]: (state, action) => ({

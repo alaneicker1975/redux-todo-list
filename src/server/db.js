@@ -19,18 +19,18 @@ class DB {
 
   query = ({ query, data, isArray }) =>
     new Promise((resolve, reject) => {
-      this.pool.getConnection((err, connection) => {
+      this.pool.getConnection((connError, connection) => {
         this.connection = connection;
 
-        if (err) {
+        if (connError) {
           connection.release();
-          reject(err);
+          reject(connError);
         }
 
-        connection.query(query, data, (err, result) => {
+        connection.query(query, data, (queryError, result) => {
           connection.release();
-          if (err) {
-            reject(err);
+          if (queryError) {
+            reject(queryError);
           } else {
             resolve(isArray === false ? result[0] : result);
           }

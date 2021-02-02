@@ -7,4 +7,3 @@ export const FETCH_PUT = 'FETCH_PUT';
 export const FETCH_PATCH = 'FETCH_PATCH';
 export const FETCH_DELETE = 'FETCH_DELETE';
 export const SET_MESSAGE = 'SET_MESSAGE';
-export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
